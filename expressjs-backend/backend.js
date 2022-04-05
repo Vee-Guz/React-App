@@ -65,7 +65,7 @@ const findUserByName = (name) => {
 }
 
 
-app.get('/users/:id', (req, res) => {
+app.get('/users/:id', (req, res) => { // id is not a query it is a param
     const id = req.params['id']; //or req.params.id
     let result = findUserById(id);
     if (result === undefined || result.length == 0)
@@ -89,4 +89,15 @@ app.post('/users', (req, res) => { // post => sends in new information
 
 function addUser(user){
     users['users_list'].push(user); // adding data to existing 
+}
+
+app.delete('/users/:id', (req, res) => {
+    const id = req.params.id; // get id from param
+    let result = removeById(id);
+    res.send(result);
+});
+
+function removeById(id){
+    // return all the users that do not match the id
+    return users['users_list'].filter( (user) => user['id'] !== id);
 }
