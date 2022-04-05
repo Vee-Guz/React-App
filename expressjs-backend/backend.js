@@ -80,3 +80,13 @@ function findUserById(id) {
     return users['users_list'].find( (user) => user['id'] === id); // or line below
     //return users['users_list'].filter( (user) => user['id'] === id);
 }
+
+app.post('/users', (req, res) => { // post => sends in new information
+    const userToAdd = req.body; // getting new data
+    addUser(userToAdd);
+    res.status(200).end();
+});
+
+function addUser(user){
+    users['users_list'].push(user); // adding data to existing 
+}
