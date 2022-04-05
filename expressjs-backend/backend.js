@@ -44,5 +44,22 @@ const users = {
  }
 
  app.get('/users', (req, res) => {
-    res.send(users);
+    const name = req.query.name;
+    if (name != undefined){ // if a name was provided as a query string
+        let result = findUserByName(name); 
+        // return the user found in a json object
+        result = {users_list: result};
+        res.send(result);
+    }
+    else{
+        // if no name provided, return all users
+        res.send(users);
+    }
 });
+
+const findUserByName = (name) => { 
+    // gets the "user_list" values from constant user
+    // for each json object, check if its name field is the name we are looking for
+    // filter will return a list of all users with the name 
+    return users['users_list'].filter( (user) => user['name'] === name); 
+}
