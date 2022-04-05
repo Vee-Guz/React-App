@@ -45,23 +45,46 @@ const users = {
 
  app.get('/users', (req, res) => {
     const name = req.query.name;
-    if (name != undefined){ // if a name was provided as a query string
+    // implementing job search
+    const job = req.query.job;
+    if ((job != undefined) && (name != undefined)){
+        // filter by name
+        let result = findUserByName(name); 
+        let name_filter = {users_list: result};
+        
+        // use filtered name list to filter by job
+        result = findUserByJob(job, name_filter); 
+        result = {users_list: result};
+        res.send(result);
+    }
+    else if (name != undefined){ // if a name was provided as a query string
         let result = findUserByName(name); 
         // return the user found in a json object
         result = {users_list: result};
         res.send(result);
     }
+    else if (job !== undefined) {
+        let result = findUserByJob(job, users);
+        result = {users_list: result};
+        res.send(result);
+    } 
     else{
         // if no name provided, return all users
         res.send(users);
     }
 });
 
+//QUESTION: What is the difference between a const and a function? Why would you want
+// to use a const vs function?
 const findUserByName = (name) => { 
     // gets the "user_list" values from constant user
     // for each json object, check if its name field is the name we are looking for
     // filter will return a list of all users with the name 
     return users['users_list'].filter( (user) => user['name'] === name); 
+}
+
+const findUserByJob = (job, name_filter) => {
+    return name_filter['users_list'].filter( (user) => user['job'] === job);
 }
 
 
