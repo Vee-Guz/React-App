@@ -74,8 +74,6 @@ const users = {
     }
 });
 
-//QUESTION: What is the difference between a const and a function? Why would you want
-// to use a const vs function?
 const findUserByName = (name) => { 
     // gets the "user_list" values from constant user
     // for each json object, check if its name field is the name we are looking for
