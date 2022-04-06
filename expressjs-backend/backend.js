@@ -114,12 +114,17 @@ function addUser(user){
 
 app.delete('/users/:id', (req, res) => {
     const id = req.params.id; // get id from param
-    let result = removeById(id);
+    removeById(id);
     //res.send(result);
     res.status(200).end();
 });
 
 function removeById(id){
-    // return all the users that do not match the id
-    return users['users_list'].filter( (user) => user['id'] !== id);
+    // remove user by id
+
+    for (var i = 0; i < users['users_list'].length; i++){
+        if (users['users_list'][i]['id'] == id){
+            users['users_list'].splice(i, 1);
+        }
+    }
 }
