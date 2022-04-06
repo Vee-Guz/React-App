@@ -115,7 +115,8 @@ function addUser(user){
 app.delete('/users/:id', (req, res) => {
     const id = req.params.id; // get id from param
     let result = removeById(id);
-    res.send(result);
+    //res.send(result);
+    res.status(200).end();
 });
 
 function removeById(id){
