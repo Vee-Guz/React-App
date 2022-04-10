@@ -108,7 +108,7 @@ function findUserById(id) {
 app.post('/users', (req, res) => { // post => sends in new information
     const userToAdd = req.body; // getting new data
     addUser(userToAdd);
-    res.status(200).end();
+    res.status(201).end();
 });
 
 function addUser(user){
