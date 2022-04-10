@@ -107,9 +107,24 @@ function findUserById(id) {
 
 app.post('/users', (req, res) => { // post => sends in new information
     const userToAdd = req.body; // getting new data
+    userToAdd["id"] = randomIdGenerator();
     addUser(userToAdd);
     res.status(201).end();
 });
+
+function randomIdGenerator(){
+    const max_Id_size = 5;
+    var values = "ABCDEFEHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+    var values_num = 62;
+    var ID = "";
+    
+    for (var i = 0; i < max_Id_size; i++){
+        random = Math.floor(Math.random() * values_num); // 62 possible values
+        ID += values.charAt(random);
+    }
+
+    return ID;
+}
 
 function addUser(user){
     users['users_list'].push(user); // adding data to existing 
