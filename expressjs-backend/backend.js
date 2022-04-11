@@ -132,17 +132,26 @@ function addUser(user){
 
 app.delete('/users/:id', (req, res) => {
     const id = req.params.id; // get id from param
-    removeById(id);
-    //res.send(result);
-    res.status(200).end();
+    const user_removed = removeById(id);
+    if (user_removed){
+        res.status(204).end();
+    }
+    else{
+        res.status(404).send('resource not found');
+    }
+    
 });
 
 function removeById(id){
-    // remove user by id
+    var user_removed = false;
 
+    // remove user by id
     for (var i = 0; i < users['users_list'].length; i++){
         if (users['users_list'][i]['id'] == id){
             users['users_list'].splice(i, 1);
+            user_removed = true;
         }
     }
+
+    return user_removed;
 }
