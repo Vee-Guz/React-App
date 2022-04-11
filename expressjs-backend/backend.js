@@ -109,7 +109,7 @@ app.post('/users', (req, res) => { // post => sends in new information
     const userToAdd = req.body; // getting new data
     userToAdd["id"] = randomIdGenerator();
     addUser(userToAdd);
-    res.status(201).end();
+    res.status(201).send(userToAdd);
 });
 
 function randomIdGenerator(){
@@ -117,7 +117,7 @@ function randomIdGenerator(){
     var values = "ABCDEFEHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
     var values_num = 62;
     var ID = "";
-    
+
     for (var i = 0; i < max_Id_size; i++){
         random = Math.floor(Math.random() * values_num); // 62 possible values
         ID += values.charAt(random);
