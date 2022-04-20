@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { findByIdAndDelete } = require("./user");
 const userModel = require("./user");
 mongoose.set("debug", true);
 
@@ -43,6 +44,16 @@ async function addUser(user) {
   }
 }
 
+async function removeUserById(id){
+    try {
+        await userModel.findByIdAndDelete(id);
+        return true;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
 async function findUserByName(name) {
   return await userModel.find({ name: name });
 }
@@ -58,3 +69,4 @@ async function findUserByNameAndJob(name, job){
 exports.getUsers = getUsers;
 exports.findUserById = findUserById;
 exports.addUser = addUser;
+exports.removeUserById = removeUserById;
