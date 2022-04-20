@@ -59,7 +59,7 @@ function MyApp() {
       return i === index;
     });
 
-    makeDeleteCall(person[0]["id"]).then( result => {
+    makeDeleteCall(person[0]["_id"]).then( result => {
       if (result && result.status === 204){
         const updated = characters.filter((character, i) => {
           return i !== index
